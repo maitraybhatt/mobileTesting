@@ -1,0 +1,69 @@
+package com.j2.pages;
+
+import org.testng.Reporter;
+
+import com.j2.driver.AbstractScreen;
+import com.j2.driver.TestBase;
+
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+
+public class ContactPage extends AbstractScreen {
+
+	public ContactPage() {
+		super(TestBase.getDriver());
+		// TODO Auto-generated constructor stub
+	}
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Abcd']")
+	private MobileElement contact_demo1;
+
+	@AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.j2.davinci:id/btn_right_side']")
+	private MobileElement edit_button;
+
+	@AndroidFindBy(xpath = "//android.widget.FrameLayout[@index='0']//android.widget.ImageButton[@content-desc='More options']")
+	private MobileElement setting_button;
+
+	@AndroidFindBy(xpath = "//android.widget.ListView//android.widget.LinearLayout[@index='2']//android.widget.TextView")
+	private MobileElement delete_button;
+
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
+	private MobileElement OK_button;
+
+	public MobileElement getOK_button() {
+		return OK_button;
+	}
+
+	public MobileElement getDelete_button() {
+		return delete_button;
+	}
+
+	public MobileElement getSetting_button() {
+		return setting_button;
+	}
+
+	public MobileElement getEdit_button() {
+		return edit_button;
+	}
+
+	public MobileElement getContact_demo1() {
+		return contact_demo1;
+	}
+
+	/**
+	 * Method to verify the new contact is saved in the contact page
+	 */
+	public void verify_contactName() {
+		TestBase.waitForPresent(getContact_demo1());
+		Reporter.log("contact is displayed", getContact_demo1().getText().contains("Abcd"));
+		getContact_demo1().click();
+		TestBase.waitForPresent(getEdit_button());
+		getEdit_button().click();
+		TestBase.waitForPresent(getSetting_button());
+		getSetting_button().click();
+		TestBase.waitForPresent(getDelete_button());
+		getDelete_button().click();
+		TestBase.waitForPresent(getOK_button());
+		getOK_button().click();
+	}
+}

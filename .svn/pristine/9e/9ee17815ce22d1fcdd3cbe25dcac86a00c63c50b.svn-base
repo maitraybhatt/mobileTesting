@@ -1,0 +1,97 @@
+package com.j2.pages;
+
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.j2.driver.AbstractScreen;
+import com.j2.driver.TestBase;
+
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+
+public class MorePage extends AbstractScreen {
+
+	public MorePage() {
+		super(TestBase.getDriver());
+		// TODO Auto-generated constructor stub
+	}
+
+	WebDriverWait wait;
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='My Number: (844) 555-1056']")
+	private MobileElement my_number;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Settings']")
+	private MobileElement setting_button;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Help']")
+	private MobileElement help_button;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Feedback']")
+	private MobileElement feedback_button;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Customer Support']")
+	private MobileElement CustomerSupport_button;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Logout']")
+	private MobileElement Logout_button;
+
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='Yes']")
+	private MobileElement Yes_button;
+
+	public MobileElement getYes_button() {
+		return Yes_button;
+	}
+
+	public MobileElement getMy_number() {
+		return my_number;
+	}
+
+	public MobileElement getSetting_button() {
+		return setting_button;
+	}
+
+	public MobileElement getHelp_button() {
+		return help_button;
+	}
+
+	public MobileElement getFeedback_button() {
+		return feedback_button;
+	}
+
+	public MobileElement getCustomerSupport_button() {
+		return CustomerSupport_button;
+	}
+
+	public MobileElement getLogout_button() {
+		return Logout_button;
+	}
+
+	/**
+	 * Method to click on Help button in more link
+	 */
+	public void clickhelpBtn() {
+		TestBase.waitForPresent(getHelp_button());
+		getHelp_button().click();
+	}
+
+	/**
+	 * Method to click on Logout button
+	 */
+	public void click_Logout_button() {
+		TestBase.waitForPresent(getLogout_button());
+		getLogout_button().click();
+		TestBase.waitForPresent(getYes_button());
+		getYes_button().click();
+		TestBase.pause(2000);
+		LoginPage Login = new LoginPage();
+		TestBase.waitForPresent(Login.getUsername());
+	}
+
+	/**
+	 * Method to click on Setting button
+	 */
+	public void click_setting_button() {
+		getSetting_button().click();
+		TestBase.pause(3000);
+
+	}
+}

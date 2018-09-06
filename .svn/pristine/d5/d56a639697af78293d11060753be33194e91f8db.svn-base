@@ -1,0 +1,254 @@
+package com.j2.pages;
+
+import org.testng.Reporter;
+
+import com.j2.driver.AbstractScreen;
+import com.j2.driver.TestBase;
+import com.j2.utils.Basefunctions;
+
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+
+public class KeypadPage extends AbstractScreen {
+
+	public KeypadPage() {
+		super(TestBase.getDriver());
+		// TODO Auto-generated constructor stub
+	}
+
+	@AndroidFindBy(xpath = "//android.widget.RelativeLayout//android.widget.ImageButton")
+	private MobileElement addcontact_button;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Add new contact']")
+	private MobileElement addcontact_txt;
+
+	@AndroidFindBy(id = "com.j2.davinci:id/ll_btn_one")
+	private MobileElement phone_field;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='4']")
+	private MobileElement phone_field2;
+
+	@AndroidFindBy(xpath = "//android.widget.Button[@content-desc='this is clear image ']")
+	private MobileElement X_button;
+
+	@AndroidFindBy(xpath = "//android.widget.EditText[@text='Name']")
+	private MobileElement contact_name_txt;
+
+	@AndroidFindBy(xpath = "//android.widget.EditText[@text='Email']")
+	private MobileElement contact_email_txt;
+
+	@AndroidFindBy(xpath = "//android.widget.EditText[@text='1 (111) 111-111']")
+	private MobileElement verify_phoneNo;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.android.contacts:id/menu_save']")
+	private MobileElement Done_button;
+
+	@AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='0']//android.widget.EditText[@index='0']")
+	private MobileElement editText;
+
+	@AndroidFindBy(xpath = "//android.support.v4.view.ViewPager//android.widget.RelativeLayout//android.widget.EditText[@index='0']")
+	private MobileElement verify_length;
+
+	@AndroidFindBy(id = "com.j2.davinci:id/editText_input_number")
+	private MobileElement NumberField;
+
+	public MobileElement getPhone_field2() {
+		return phone_field2;
+	}
+
+	public MobileElement getVerify_length() {
+		return verify_length;
+	}
+
+	public MobileElement getEditText() {
+		return editText;
+	}
+
+	public MobileElement getDone_button() {
+		return Done_button;
+	}
+
+	public MobileElement getContact_name_txt() {
+		return contact_name_txt;
+	}
+
+	public MobileElement getContact_email_txt() {
+		return contact_email_txt;
+	}
+
+	public MobileElement getVerify_phoneNo() {
+		return verify_phoneNo;
+	}
+
+	public MobileElement getX_button() {
+		return X_button;
+	}
+
+	public MobileElement getPhone_field() {
+		return phone_field;
+	}
+
+	public MobileElement getAddcontact_button() {
+		return addcontact_button;
+	}
+
+	public MobileElement getAddcontact_txt() {
+		return addcontact_txt;
+	}
+
+	public MobileElement getNumberField() {
+		return NumberField;
+	}
+
+	/**
+	 * Method to click on add contact button and verify add new contact screen
+	 * open
+	 */
+	public void click_contact_button() throws InterruptedException {
+		getAddcontact_button().click();
+		Reporter.log("Add new contact screen opened", getAddcontact_txt().getText().contains("Add new contact"));
+	}
+
+	/**
+	 * Method to enter a domestic/US 10 digit number into the number field
+	 */
+	public void enter_10_digitnumber() {
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+
+		getAddcontact_button().click();
+		TestBase.pause(2000);
+	}
+
+	/**
+	 * Method to enter a domestic/US 10 digit number into the number field
+	 */
+
+	public void enter_11_digitnumber() {
+		TestBase.waitForPresent(getPhone_field());
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+
+		Basefunctions.verifyTrue(getVerify_length().getText().length() >= 11,
+				"User is able to enter a number that is over 11 digits and up to 20 digits long",
+				"User is not be able to enter a number that is over 11 digits and up to 20 digits long");
+
+		getX_button().click();
+		TestBase.pause(5000);
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+
+		if (getVerify_length().getText().length() <= 20) {
+			System.out.println("Keypad should accept the number entry");
+		} else {
+			System.out.println("Keypad should not accept the number entry");
+		}
+		getPhone_field().click();
+		if (getVerify_length().getText().length() > 20) {
+
+			System.out.println("Keypad should accept the number entry");
+		} else {
+			System.out.println("Keypad should not accept the number entry");
+		}
+
+		new TouchAction(driver).longPress(getX_button()).release().perform();
+	}
+
+	/**
+	 * Enter a domestic/US number; lead with the country code of 1
+	 */
+	public boolean enter_domestic_USnumber() {
+		TestBase.waitForPresent(getPhone_field());
+		getPhone_field().click();
+		getPhone_field2().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+
+		System.out.println(" Entered a domestic/US number, lead with the country code of 1");
+
+		if (getVerify_length().getText().trim().substring(0, 8).contains("1 (411)") == true) {
+			new TouchAction(driver).longPress(getX_button()).release().perform();
+			return true;
+		} else {
+			new TouchAction(driver).longPress(getX_button()).release().perform();
+			return false;
+		}
+	}
+
+	/**
+	 * Enter a domestic/US number; lead with the country code of 1
+	 */
+	public boolean enter_domestic_USnumber_omit1() {
+		TestBase.waitForPresent(getPhone_field2());
+		getPhone_field2().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+		getPhone_field().click();
+
+		if (getVerify_length().getText().substring(0, 8).contains("(411) 1") == true) {
+			new TouchAction(TestBase.getDriver()).longPress(getX_button()).release().perform();
+			return true;
+		} else {
+			new TouchAction(TestBase.getDriver()).longPress(getX_button()).release().perform();
+			return false;
+		}
+
+	}
+
+	/**
+	 * Method to verify the New Contacts screen is opened up and the phone
+	 * number field is populated with your 10 digit number
+	 */
+	public void verify_contactpage() {
+		TestBase.waitForPresent(getVerify_phoneNo());
+		Reporter.log("phone number field is populated with your 10 digit number",
+				getVerify_phoneNo().getText().contains("1 (111) 111-111"));
+
+		getContact_email_txt().sendKeys("demo123@gmail.com");
+		TestBase.pause(1000);
+		getContact_name_txt().sendKeys("Abcd");
+		TestBase.pause(3000);
+		getDone_button().click();
+
+	}
+
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" verbose="0" name="Failed suite [Suite]">
+  <listeners>
+    <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+    <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+    <listener class-name="com.j2.listner.CustomListner"/>
+    <listener class-name="com.j2.listner.TestNGListener"/>
+  </listeners>
+  <test name="Test(failed)">
+    <classes>
+      <class name="com.j2.test.TestSuite">
+        <methods>
+          <include name="TC_1"/>
+        </methods>
+      </class> <!-- com.j2.test.TestSuite -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->

@@ -1,0 +1,132 @@
+package com.j2.pages;
+
+import org.testng.Reporter;
+
+import com.j2.driver.AbstractScreen;
+import com.j2.driver.TestBase;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+
+public class MessagePage extends AbstractScreen {
+
+	public MessagePage(AppiumDriver driver) {
+		super(driver);
+		// TODO Auto-generated constructor stub
+	}
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Automation Team']")
+	private MobileElement automation_Team;
+
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='All']")
+	private MobileElement All_button;
+
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='Voicemail']")
+	private MobileElement voicemail_button;
+
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='Fax']")
+	private MobileElement fax_button;
+
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='Trash']")
+	private MobileElement trash_button;
+
+	@AndroidFindBy(xpath = "//android.widget.ImageButton")
+	private MobileElement compose_icon;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Compose Fax']")
+	private MobileElement compose_fax;
+
+	@AndroidFindBy(xpath = "//android.widget.CheckBox")
+	private MobileElement coverpage;
+
+	public MobileElement getAutomation_Team() {
+		return automation_Team;
+	}
+
+	public MobileElement getAll_button() {
+		return All_button;
+	}
+
+	public MobileElement getVoicemail_button() {
+		return voicemail_button;
+	}
+
+	public MobileElement getFax_button() {
+		return fax_button;
+	}
+
+	public MobileElement getTrash_button() {
+		return trash_button;
+	}
+
+	public MobileElement getCompose_icon() {
+		return compose_icon;
+	}
+
+	public MobileElement getCompose_fax() {
+		return compose_fax;
+	}
+
+	public MobileElement getCoverpage() {
+		return coverpage;
+	}
+
+	/**
+	 * Method to open All screen
+	 */
+	public void open_all() {
+		getAll_button().click();
+
+	}
+
+	/**
+	 * Method to open voicemail screen
+	 */
+	public void open_voicemail() {
+		getVoicemail_button().click();
+
+	}
+
+	/**
+	 * Method to open fax screen
+	 */
+	public void open_fax() throws InterruptedException {
+		getFax_button().click();
+		TestBase.pause(2000);
+	}
+
+	/**
+	 * Method to open trash screen
+	 */
+	public void open_trash() throws InterruptedException {
+		getTrash_button().click();
+		TestBase.pause(2000);
+	}
+
+	/**
+	 * Method to open trash screen
+	 */
+	public void open_compose_icon() throws InterruptedException {
+		getCompose_icon().click();
+	}
+
+	/**
+	 * Method to verify screen is open and coverpage checkbox is bydefault
+	 * selected
+	 */
+	public void verify_coverpage() throws InterruptedException {
+		if (getCompose_fax().isDisplayed()) {
+			Reporter.log("Compose Fax screen is open");
+		} else {
+			Reporter.log("Compose Fax screen is not open");
+		}
+		TestBase.pause(2000);
+
+		if (getCoverpage().isSelected()) {
+			Reporter.log("coverpage checkbox is bydefault selected");
+		} else {
+			Reporter.log("coverpage checkbox is not selected");
+		}
+	}
+}

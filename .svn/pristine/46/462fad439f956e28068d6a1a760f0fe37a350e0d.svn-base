@@ -1,0 +1,190 @@
+package com.j2.utils;
+
+import java.io.File;
+import java.io.FileReader;
+import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.log4j.Logger;
+
+public class Property extends PropertiesConfiguration {
+
+	static Logger log = Logger.getLogger(Property.class.getName());
+
+	FileReader reader;
+
+	/**
+	 * Default Constructor
+	 * 
+	 * @author amchoksi
+	 * @param ApplicationPropertyFile
+	 *            Base Property File
+	 * 
+	 */
+	public Property(String ApplicationPropertyFile) {
+		log.info(ApplicationPropertyFile);
+		initialize(ApplicationPropertyFile);
+	}
+
+	public Property() {
+		super();
+	}
+
+	public int getSize() {
+		Iterator<String> keys = getKeys();
+		int i = 0;
+		while (keys.hasNext()) {
+			i++;
+			keys.next();
+		}
+		return i;
+	}
+
+	private void initialize(String ApplicationPropertyFile) {
+		try {
+			// Load Master Property File
+			File f = new File(ApplicationPropertyFile);
+			System.out.println(f.getParent());
+			File F = new File(ApplicationPropertyFile);
+			log.info("Application Property file : " + f.getAbsolutePath());
+			System.out.println("Application Property file : " + f.getAbsolutePath());
+			loadfile(F);
+
+			// Load All System Property
+			loadSystemProperty();
+
+			// Load All other property files
+			if (null != getString("resources") && getString("resources").length() != 0) {
+				log.info("Resource String is : " + getString("resources"));
+				loadResources(f.getParent(), getString("resources"));
+			}
+
+			// Load All System Property
+			loadSystemProperty();
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Loads All System Property
+	 * 
+	 * @author amchoksi
+	 * 
+	 */
+	private void loadSystemProperty() {
+		try {
+			Iterator<Object> sysProperty = System.getProperties().keySet().iterator();
+
+			while (sysProperty.hasNext()) {
+				String propertyName = String.valueOf(sysProperty.next());
+				String propertyValue = System.getProperties().getProperty(propertyName);
+				String originalValue = getString(propertyName);
+
+				if (originalValue.trim() == "") {
+					log.info("Added Property : " + propertyName + " with Value : " + propertyValue);
+					addProperty(propertyName, propertyValue);
+				} else if (!propertyValue.trim().equalsIgnoreCase(originalValue.trim())) {
+					log.info("Property Override with System Property : " + propertyName + ". Original Value : "
+							+ originalValue + ". Override Value : " + propertyValue);
+					super.setProperty(propertyName.trim(), propertyValue.trim());
+				}
+			}
+		} catch (Exception e) {
+			log.info("Unable to load System property...." + e.getMessage());
+		}
+	}
+
+	/**
+	 * Loads All Property files from given resource folder.
+	 * 
+	 * @author amchoksi
+	 * @param parentDir
+	 *            Parent Dir name
+	 * @param resourceDir
+	 *            Resource Dir name
+	 * 
+	 */
+	public void loadResources(String parentDir, String resourceDir) {
+		try {
+			int noOfPropertyFiles = 0;
+			log.info("Loading Resources : " + resourceDir);
+
+			String resource_dir = resourceDir;
+			String[] sub = resource_dir.split(";");
+
+			// Loop Through all files and add properties.
+
+			log.info("No of Resources Directory : " + sub.length);
+
+			for (int i = 0; i < sub.length; i++) {
+				log.info("Loading Resources from " + parentDir + "/" + sub[i]);
+				File folder = new File(parentDir + "/" + sub[i]);
+				File[] listOfFiles = folder.listFiles();
+
+				for (int j = 0; listOfFiles != null && j < listOfFiles.length; j++) {
+					log.info("Loading Resources File : " + listOfFiles[j]);
+					if (listOfFiles[j].getName().contains(".properties")) {
+						noOfPropertyFiles++;
+						loadfile(listOfFiles[j]);
+					}
+				}
+			}
+			log.info("Load " + noOfPropertyFiles + " property files.");
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Method to read any property.
+	 * 
+	 * @author amchoksi
+	 * @param key
+	 *            Key To Read
+	 * 
+	 */
+
+	@Override
+	public String getString(String key) {
+		String value = super.getString(key);
+		if (null == value)
+			return "";
+
+		Pattern MY_PATTERN = Pattern.compile("\\$\\{.*?\\}");
+		Matcher m = MY_PATTERN.matcher(value);
+
+		while (m.find()) {
+			String strToReplace = m.group(0);
+			String ReplacedString = m.group(0).replace("$", "").replace("{", "").replace("}", "");
+
+			if (null != super.getString(ReplacedString)) {
+				value.replace(strToReplace, super.getString(ReplacedString));
+			}
+		}
+		return value;
+	}
+
+	/**
+	 * Loads All Properties from given file.
+	 * 
+	 * @author amchoksi
+	 * @param f
+	 *            File to be loaded.
+	 */
+
+	public void loadfile(File f) {
+		try {
+			reader = new FileReader(f);
+			if (null != reader.toString())
+				load(reader);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+}

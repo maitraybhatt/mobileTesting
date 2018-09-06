@@ -1,0 +1,168 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>seleniumWebAutomationFramework</groupId>
+	<artifactId>seleniumWebAutomation</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<testng.report.title>Test Automation</testng.report.title>
+		<run_time>HTML_Report</run_time>
+		<test.results.dir>
+			target/surefire-reports/${run_time}</test.results.dir>
+	</properties>
+
+	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.11.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.11</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.uncommons/reportng -->
+		<dependency>
+			<groupId>org.uncommons</groupId>
+			<artifactId>reportng</artifactId>
+			<version>1.1.4</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.testng</groupId>
+					<artifactId>testng</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.23</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/commons-configuration/commons-configuration -->
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.6</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>3.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.beanshell/bsh -->
+		<dependency>
+			<groupId>org.beanshell</groupId>
+			<artifactId>bsh</artifactId>
+			<version>2.0b4</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-firefox-driver -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-firefox-driver</artifactId>
+			<version>3.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+		<dependency>
+			<groupId>io.appium</groupId>
+			<artifactId>java-client</artifactId>
+			<version>6.0.0-BETA4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.21.0</version>
+				<configuration>
+					<properties>
+						<!-- Setting ReportNG listeners -->
+						<property>
+							<name>listener</name>
+							<value>org.uncommons.reportng.HTMLReporter,
+								org.uncommons.reportng.JUnitXMLReporter,com.j2.listner.CustomListner,com.j2.listner.TestNGListener</value>
+						</property>
+					</properties>
+					<suiteXmlFiles>
+						<suiteXmlFile>testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
+					<forkMode>never</forkMode>
+
+					<reportsDirectory>${test.results.dir}</reportsDirectory>
+					<systemPropertyVariables>
+						<org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
+						<test.results.screenshots.dir>${test.results.dir}/html/img/</test.results.screenshots.dir>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>default-cli</id>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target name="gendoc">
+								<javadoc packagenames="com.**.test.*" sourcepath="src"
+									destdir="target/tests" verbose="true" author="true" version="true"
+									use="true" windowtitle="Automation Tests">
+									<doctitle>document</doctitle>
+									<bottom>javadocumnet</bottom>
+								</javadoc>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

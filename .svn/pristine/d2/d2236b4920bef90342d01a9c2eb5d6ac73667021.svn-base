@@ -1,0 +1,161 @@
+package com.j2.test;
+
+import org.openqa.selenium.By;
+import org.testng.annotations.Test;
+
+import com.j2.driver.TestBase;
+import com.j2.pages.ContactPage;
+import com.j2.pages.HelpPage;
+import com.j2.pages.KeypadPage;
+import com.j2.pages.LoginPage;
+import com.j2.pages.MorePage;
+import com.j2.pages.TemplatePage;
+import com.j2.utils.Basefunctions;
+
+public class TestSuite {
+
+	@Test(priority = 1, description = "Davinci Android Phone - Help Text & Support ")
+	public void TC_21007() {
+		HelpPage helppage = new HelpPage();
+		LoginPage loginpage = new LoginPage();
+		MorePage morepage = new MorePage();
+		TemplatePage template = new TemplatePage();
+
+		// Tap on the Help icon
+		loginpage.click_helpIcon();
+
+		// verify the message on clicking help icon
+		Basefunctions.verifyTrue(
+				loginpage.getHelp_msg0().getText().contains("Log in using your Davinci® number, number  extension")
+						&& loginpage.getHelp_msg1().getText().contains("For example:")
+						&& loginpage.getHelp_msg2().getText().contains("8665550011")
+						&& loginpage.getHelp_msg3().getText().contains("To get Davinci® service:")
+						&& loginpage.getHelp_msg4().getText().contains("call (877) 693-2846"),
+				"Message should be display with this details:Log in using your Davinci number, number + extension, or email address.For example: 86655500118665550011x1john.doe@davinci.comTo get Davinci services call (877)6932846",
+				"Message should not  be display with this details:Log in using your Davinci number, number + extension, or email address.For example: 86655500118665550011x1john.doe@davinci.comTo get Davinci services call (877)6932846");
+		loginpage.getOKbutton().click();
+
+		// Login into the Davinci application
+		loginpage.doLogin();
+
+		// Tap on the More link and select Help button
+		template.open_more();
+		morepage.clickhelpBtn();
+
+		// Verify the user is on the help screen
+		Basefunctions.verifyTrue(helppage.getHelp_text().getText().contains("Help"), "User is on the Help screen",
+				"User is not on the Help screen");
+		TestBase.pause(5000);
+		TestBase.getDriver().navigate().back();
+		TestBase.pause(5000);
+		TestBase.getDriver().findElement(By.xpath("//*[@text='Search']")).sendKeys("contact");
+		;
+		TestBase.pause(10000);
+		helppage.getQuestion_list().click();
+		Basefunctions.verifyTrue(
+				helppage.getcontact_customer().getText().contains("(877) 693–2846")
+						&& helppage.getcontact_customer().getText().contains("@davincivirtual.com"),
+				"The Davinci support number and email listed on the screen matches the following details:Customer Support: (877)6932846support@davincivirtual.com",
+				"The Davinci support number and email listed on the screen don't  matches the following details:Customer Support: (877)6932846support@davincivirtual.com");
+		TestBase.getDriver().navigate().back();
+
+		// logout Davinci application
+		morepage.click_Logout_button();
+	}
+
+	@Test(priority = 2, description = "Davinci Android Tablet - Login - Invalid User Error")
+	public void TC_22303() {
+		LoginPage loginpage = new LoginPage();
+
+		// Login with invalid DID credential
+		loginpage.dologin_with_invalid_DID();
+		loginpage.loginError();
+		TestBase.getDriver().resetApp();
+
+		// Login with invalid password
+		loginpage.dologin_with_invalid_password();
+
+		// Verify Login fails & the following login error is returned
+		TestBase.waitForPresent(loginpage.getInvalidcredential_error());
+		Basefunctions.verifyTrue(loginpage.getInvalidcredential_error().getText().contains("Invalid credentials"),
+				"Following error  should display:Invalid credentials. Please correct and try again. If problem persists, please contact Davinci customer support at (877) 693 2846",
+				"Following error  should display:Invalid credentials. Please correct and try again. If problem persists, please contact Davinci customer support at (877) 693 2846");
+
+		// Dismiss pop-up
+		loginpage.getClose_button().click();
+		TestBase.getDriver().resetApp();
+	}
+
+	@Test(priority = 3, description = "Davinci Android Phone - Keypad - Add Number to Contacts")
+	public void TC_22325() {
+		KeypadPage keypadpage = new KeypadPage();
+		TemplatePage templatepage = new TemplatePage();
+		LoginPage loginpage = new LoginPage();
+		ContactPage contactpage = new ContactPage();
+
+		// Login with valid credentials
+		loginpage.doLogin();
+		TestBase.waitForPresent(keypadpage.getAddcontact_button());
+
+		// Click on Add contact button
+		keypadpage.getAddcontact_button().click();
+
+		// Verify it is displaying add new contact button or not
+		Basefunctions.verifyTrue(keypadpage.getAddcontact_txt().getText().contains("Add new contact"),
+				"The 'Add New Contact' screen open", "The 'Add New Contact' screen not open");
+		TestBase.getDriver().navigate().back();
+
+		// Add 10 digit number
+		keypadpage.enter_10_digitnumber();
+
+		// Verify added number on contact details page and add contact
+		keypadpage.verify_contactpage();
+		templatepage.open_contacts();
+
+		// verify added contact details
+		contactpage.verify_contactName();
+		TestBase.getDriver().resetApp();
+
+	}
+
+	@Test(priority = 4, description = "Davinci Android Phone - Keypad - Number Format")
+	public void TC_22327() {
+		KeypadPage keypadpage = new KeypadPage();
+		LoginPage loginpage = new LoginPage();
+
+		// Login with valid credentials
+		loginpage.doLogin();
+
+		// Verify entering 11 digit number
+		keypadpage.enter_11_digitnumber();
+
+		// Enter a domestic/US number; lead with the country code of 1
+		Basefunctions.verifyTrue(keypadpage.enter_domestic_USnumber(),
+				"Entry is accepted as Per requirements:If 10 digit number is entered with a 1 first display 1(415)-555-1122",
+				"Entry is not accepted as Per requirements:If 10 digit number is entered with a 1 first display 1(415)-555-1122");
+
+		// Verify number format when it is not leading with 1
+		Basefunctions.verifyTrue(keypadpage.enter_domestic_USnumber_omit1(),
+				"Entry is accepted as Per requirements: 'If 10 digit number is entered without 1 first display (415)-555-1122'",
+				"Entry is not accepted as Per requirements: 'If 10 digit number is entered without 1 first display (415)-555-1122'");
+		TestBase.getDriver().resetApp();
+
+	}
+
+	@Test(priority = 5, description = "Davinci Android Phone - Notification - 911 Prompt")
+	public void TC_22314() {
+		LoginPage loginpage = new LoginPage();
+
+		// Do login and waiting for notification message.
+		loginpage.verify_unabletodial_msg();
+
+		// Verifying notification message is as expected or not
+		Basefunctions.verifyTrue(loginpage.getUnabletodial_txt().getText().contains("You understand"),
+				"A user should be notified upon first login that they are unable to dial 911 from the mobile app",
+				"A user should not be notififed upon first login that they are unable to dial 911 from the mobile app");
+
+		// click on OK button.
+		loginpage.getOKbutton().click();
+		TestBase.getDriver().closeApp();
+	}
+}

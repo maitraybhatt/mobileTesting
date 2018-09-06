@@ -1,0 +1,44 @@
+package com.j2.pages;
+
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.j2.driver.AbstractScreen;
+import com.j2.driver.TestBase;
+
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+
+public class HelpPage extends AbstractScreen {
+
+	public HelpPage() {
+		super(TestBase.getDriver());
+		// TODO Auto-generated constructor stub
+	}
+
+	WebDriverWait wait;
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Help']")
+	private MobileElement help_text;
+
+	@AndroidFindBy(xpath = "//android.widget.CheckedTextView[@text='How do I contact support?']")
+	private MobileElement question_list;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='To contact Customer Support, call (877) 693–2846 or send an email to support@davincivirtual.com']")
+	private MobileElement contact_customer;
+
+	public WebDriverWait getWait() {
+		return wait;
+	}
+
+	public MobileElement getQuestion_list() {
+		return question_list;
+	}
+
+	public MobileElement getcontact_customer() {
+		return contact_customer;
+	}
+
+	public MobileElement getHelp_text() {
+		return help_text;
+	}
+
+}
