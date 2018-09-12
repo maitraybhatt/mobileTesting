@@ -79,7 +79,7 @@ public class TestBase extends WebDriverTestBase {
 			//		+ ":" + PropertyManager.getResourceBundle().getString("server.port") + "/wd/hub"), capabilities);
 			//driver = new AppiumDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
-			driver = new AppiumDriver<WebElement>( new URL("http://192.192.5.2:4723/wd/hub"), capabilities);
+			driver = new AppiumDriver<WebElement>( new URL("http://202.131.112.106:4723/wd/hub"), capabilities);
 			System.out.println("*********connection tested*****" + driver);
 			return driver;
 
