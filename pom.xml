@@ -9,7 +9,9 @@
 		<run_time>HTML_Report</run_time>
 		<test.results.dir>
 			target/surefire-reports/${run_time}</test.results.dir>
+			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
 
 	<dependencies>
 
