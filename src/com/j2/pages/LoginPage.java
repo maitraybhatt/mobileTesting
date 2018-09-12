@@ -68,8 +68,8 @@ public class LoginPage extends AbstractScreen {
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='Yes']")
 	private MobileElement Yes_button;
 
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Invalid credentials. Please correct and try again. If problem persists, please contact Davinci® customer support at (877) 693-2846.']")
-	private MobileElement invalidcredential_error;
+	/*@AndroidFindBy(xpath = "//android.widget.TextView[@text='Invalid credentials. Please correct and try again. If problem persists, please contact Davinciï¿½ customer support at (877) 693-2846.']")
+	private MobileElement invalidcredential_error;*/
 
 	@AndroidFindBy(xpath = "//android.widget.TextView[@index='0']")
 	private MobileElement unabletodial_txt;
@@ -89,9 +89,9 @@ public class LoginPage extends AbstractScreen {
 		return help_icon_button;
 	}
 
-	public MobileElement getInvalidcredential_error() {
+	/*public MobileElement getInvalidcredential_error() {
 		return invalidcredential_error;
-	}
+	}*/
 
 	public MobileElement getYes_button() {
 		return Yes_button;
@@ -212,7 +212,7 @@ public class LoginPage extends AbstractScreen {
 	/**
 	 * Method to verify login error
 	 */
-	public void loginError() {
+	/*public void loginError() {
 		TestBase.waitForPresent(getInvalidcredential_error());
 		
 		Basefunctions.verifyTrue(getInvalidcredential_error().getText().contains("Invalid credentials"),
@@ -220,7 +220,7 @@ public class LoginPage extends AbstractScreen {
 				"User is not getting login error message for invalid credential");
 		getClose_button().click();
 		TestBase.pause(2000);
-	}
+	}*/
 
 	/**
 	 * Method to configure

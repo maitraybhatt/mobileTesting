@@ -46,8 +46,8 @@ public class SettingPage extends AbstractScreen {
 	@AndroidFindBy(xpath = "//android.widget.CheckedTextView[@text='Davinci Number']")
 	private MobileElement inbound_Davinci_number;
 
-	@AndroidFindBy(xpath = "//android.widget.CheckedTextView[@text='Caller’s Number']")
-	private MobileElement inbound_callers_number;
+/*	@AndroidFindBy(xpath = "//android.widget.CheckedTextView[@text='Callerï¿½s Number']")
+	private MobileElement inbound_callers_number;*/
 
 	@AndroidFindBy(xpath = "//android.widget.Spinner[@index='8']//android.widget.TextView[@index='0']")
 	private MobileElement homescreen_btn;
@@ -106,9 +106,9 @@ public class SettingPage extends AbstractScreen {
 		return homescreen_btn;
 	}
 
-	public MobileElement getInbound_callers_number() {
+	/*public MobileElement getInbound_callers_number() {
 		return inbound_callers_number;
-	}
+	}*/
 
 	public MobileElement getKeypad_option() {
 		return keypad_option;
@@ -200,9 +200,9 @@ public class SettingPage extends AbstractScreen {
 		getInbound_caller_id_btn().click();
 		Reporter.log("Davinci number option is listed in the dropdown",
 				getInbound_Davinci_number().getText().contains("Davinci Number"));
-		Reporter.log("Caller's number option is listed in the dropdown",
-				getInbound_Davinci_number().getText().contains("Caller’s Number"));
-		getInbound_callers_number().click();
+	/*	Reporter.log("Caller's number option is listed in the dropdown",
+				getInbound_Davinci_number().getText().contains("Callerï¿½s Number"));*/
+		//getInbound_callers_number().click();
 		TestBase.pause(5000);
 	}
 
