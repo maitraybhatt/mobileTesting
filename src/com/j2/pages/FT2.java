@@ -4,10 +4,9 @@ package com.j2.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.server.handler.FindElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.j2.driver.AbstractScreen;
+
 import com.j2.driver.TestBase;
 import com.j2.utils.Basefunctions;
 import com.j2.utils.Property;
