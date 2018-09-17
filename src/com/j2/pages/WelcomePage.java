@@ -14,9 +14,9 @@ import com.j2.utils.Property;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 
-public class FT2 extends AbstractScreen {
+public class WelcomePage extends AbstractScreen {
 
-	public FT2() {
+	public WelcomePage() {
 		super(TestBase.getDriver());
 		
 		// TODO Auto-generated constructor stub
@@ -36,8 +36,6 @@ public class FT2 extends AbstractScreen {
 	@AndroidFindBy(xpath = "//android.widget.LinearLayout//android.widget.Button[@text='Allow']")
 	private MobileElement allowCamera;	
 	
-	@AndroidFindBy(xpath = "//android.support.v7.widget.RecyclerView//android.support.v7.widget.RecyclerView//android.widget.TextView")
-	private MobileElement tableDataPresent;	
 	
 
 	public MobileElement getTrackAndTracePage() {
@@ -47,10 +45,7 @@ public class FT2 extends AbstractScreen {
 	 public MobileElement getViewAllOption() {
 		return viewAllOption;
 	}
-	 
-	 public MobileElement getTableDataPresent() {
-			return tableDataPresent;
-		}
+
 	 
 	 public MobileElement getAllowCamera() {
 			return allowCamera;
@@ -74,19 +69,6 @@ public class FT2 extends AbstractScreen {
 		System.out.println("===========allow camera clicked==========");
 	}
 	
-	
-	public void verifyTableHeader(String header, int i) {
-		
-		String elementText = property.getInput(header, i);
-		WebElement element = driver.findElement(By.xpath("//android.widget.TextView[@text='"+elementText+"']"));
-		String test = element.getText();
-		System.out.println("*****elements text is****" + test);
-		Basefunctions.verifyTrue(element.isDisplayed(),"Verified Header "+(i+1)+" ","Header "+(i+1)+" not verified");
-	}
-	
-	public void verifyTableDataPresent() {
-		Basefunctions.verifyTrue(getTableDataPresent().isDisplayed(),"Verified table","Table not verified");
-	}
 	
 
 
