@@ -68,7 +68,7 @@ public class TestBase extends WebDriverTestBase {
 
 			capabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, true);
 			//capabilities.setCapability("app", app.getAbsolutePath());
-			capabilities.setCapability("app", "D:\\BlockChain\\mfg_qa_1_1_12.apk");
+			capabilities.setCapability("app", "D:\\MobileAutomation\\Pharmacy\\Pharma\\Apk\\mfg_qa_1_1_12.apk");
 			
 
 			System.out.println(
