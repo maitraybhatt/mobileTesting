@@ -45,11 +45,10 @@ public class WelcomePage extends AbstractScreen {
 	 public MobileElement getViewAllOption() {
 		return viewAllOption;
 	}
-
-	 
+ 
 	 public MobileElement getAllowCamera() {
 			return allowCamera;
-		}
+	}
 
 
 	public void verifyFirstPage() {
@@ -64,7 +63,6 @@ public class WelcomePage extends AbstractScreen {
 	
 	public void clickAllowCamera() throws InterruptedException {
 		Thread.sleep(5000);
-		//driver.findElement(By.xpath("//android.widget.LinearLayout//android.widget.Button[@text='Allow']")).click();
 		getAllowCamera().click();
 		System.out.println("===========allow camera clicked==========");
 	}

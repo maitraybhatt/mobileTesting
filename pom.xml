@@ -65,6 +65,13 @@
 			<version>1.6</version>
 		</dependency>
 
+			<!-- https://mvnrepository.com/artifact/org.uncommons/reportng -->
+		<dependency>
+		    <groupId>org.uncommons</groupId>
+		    <artifactId>reportng</artifactId>
+		    <version>1.1.4</version>
+		    <scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>com.google.inject</groupId>
@@ -144,6 +151,9 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			
+
+			
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

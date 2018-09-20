@@ -1,6 +1,7 @@
 package com.j2.test;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import com.j2.driver.TestBase;
-import com.j2.pages.FT2;
+import com.j2.pages.TablePage;
+import com.j2.pages.WelcomePage;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -21,82 +23,70 @@ public class TestSuite {
 	public static AppiumDriver<WebElement> driver;
 	WebDriverWait wait;
 	
-	@Test(priority = 1, description = "TC_1 ")
-	public void TC_1() throws InterruptedException {
+
+	/*@Test(priority = 1, description = "Verify table header")
+	public void TrackTrace_Verify_table_header() throws InterruptedException {
 		String header = "header";
 		
-		FT2 testCase1 = new FT2();
-		testCase1.clickAllowCamera();
+		WelcomePage welcomePage = new WelcomePage();
+		TablePage tablePage = new TablePage();
+		welcomePage.clickAllowCamera();
 		TestBase.pause(5000);
-		testCase1.verifyFirstPage();
+		welcomePage.verifyFirstPage();
 		TestBase.pause(5000);
-		testCase1.clickViewAll();
+		welcomePage.clickViewAll();
 		TestBase.pause(5000);
 		
 		for(int i=0;i<4;i++)
 		{
-			testCase1.verifyTableHeader(header,i );
+			tablePage.verifyTableHeader(header,i );
 		}
-		testCase1.verifyTableDataPresent();
+		tablePage.verifyTableDataPresent();
+		
+	}*/
+
+/*@Test(priority = 2, description = "Verify Table and Table Header")
+	public void TrackTrace_Verify_Table_and_Table_header() throws InterruptedException {
+	String header = "header";
+	WelcomePage welcomePage = new WelcomePage();
+	TablePage tablePage = new TablePage();
+	
+	welcomePage.clickAllowCamera();
+	TestBase.pause(5000);
+	
+	welcomePage.clickViewAll();
+	TestBase.pause(5000);
+	
+	for(int i=0;i<4;i++)
+	{
+		tablePage.verifyTableHeader(header,i );
+	}
+	tablePage.verifyTableDataPresent();
+	TestBase.pause(1000);
+	
+	tablePage.clickProduct();
+	TestBase.pause(5000);
+	
+	tablePage.verifyRowCount();
+	
+	}*/
+
+	@Test(priority = 3, description = "Verify_Sorting_Ascending_Order")
+	public void TrackTrace_Verify_Ascending_Order() throws InterruptedException {
+		WelcomePage welcomePage = new WelcomePage();
+		TablePage tablePage = new TablePage();
+		
+		welcomePage.clickAllowCamera();
+		TestBase.pause(5000);
+		
+		welcomePage.clickViewAll();
+		TestBase.pause(5000);
+		
+		tablePage.verifyAscendingOrder();
 		
 	}
 
-/*	@Test(priority = 2, description = "Davinci Android Tablet - Login - Invalid User Error")
-	public void TC_22303() {
-		LoginPage loginpage = new LoginPage();
-
-		// Login with invalid DID credential
-		loginpage.dologin_with_invalid_DID();
-		loginpage.loginError();
-		TestBase.getDriver().resetApp();
-
-		// Login with invalid password
-		loginpage.dologin_with_invalid_password();
-
-		// Verify Login fails & the following login error is returned
-		TestBase.waitForPresent(loginpage.getInvalidcredential_error());
-		Basefunctions.verifyTrue(loginpage.getInvalidcredential_error().getText().contains("Invalid credentials"),
-				"Following error  should display:Invalid credentials. Please correct and try again. If problem persists, please contact Davinci customer support at (877) 693 2846",
-				"Following error  should display:Invalid credentials. Please correct and try again. If problem persists, please contact Davinci customer support at (877) 693 2846");
-
-		// Dismiss pop-up
-		loginpage.getClose_button().click();
-		TestBase.getDriver().resetApp();
-	}
-
-	@Test(priority = 3, description = "Davinci Android Phone - Keypad - Add Number to Contacts")
-	public void TC_22325() {
-		KeypadPage keypadpage = new KeypadPage();
-		TemplatePage templatepage = new TemplatePage();
-		LoginPage loginpage = new LoginPage();
-		ContactPage contactpage = new ContactPage();
-
-		// Login with valid credentials
-		loginpage.doLogin();
-		TestBase.waitForPresent(keypadpage.getAddcontact_button());
-
-		// Click on Add contact button
-		keypadpage.getAddcontact_button().click();
-
-		// Verify it is displaying add new contact button or not
-		Basefunctions.verifyTrue(keypadpage.getAddcontact_txt().getText().contains("Add new contact"),
-				"The 'Add New Contact' screen open", "The 'Add New Contact' screen not open");
-		TestBase.getDriver().navigate().back();
-
-		// Add 10 digit number
-		keypadpage.enter_10_digitnumber();
-
-		// Verify added number on contact details page and add contact
-		keypadpage.verify_contactpage();
-		templatepage.open_contacts();
-
-		// verify added contact details
-		contactpage.verify_contactName();
-		TestBase.getDriver().resetApp();
-
-	}
-
-	@Test(priority = 4, description = "Davinci Android Phone - Keypad - Number Format")
+	/*@Test(priority = 4, description = "Davinci Android Phone - Keypad - Number Format")
 	public void TC_22327() {
 		KeypadPage keypadpage = new KeypadPage();
 		LoginPage loginpage = new LoginPage();

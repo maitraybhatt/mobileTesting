@@ -7,13 +7,13 @@
     <listener class-name="com.j2.listner.CustomListner"/>
     <listener class-name="com.j2.listner.TestNGListener"/>
   </listeners>
-  <test name="Test(failed)">
+  <test name="Track And Trace(failed)">
     <classes>
       <class name="com.j2.test.TestSuite">
         <methods>
-          <include name="TC_1"/>
+          <include name="TrackTrace_Verify_Ascending_Order"/>
         </methods>
       </class> <!-- com.j2.test.TestSuite -->
     </classes>
-  </test> <!-- Test(failed) -->
+  </test> <!-- Track And Trace(failed) -->
 </suite> <!-- Failed suite [Suite] -->

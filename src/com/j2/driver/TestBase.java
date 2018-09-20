@@ -21,7 +21,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 
-import com.j2.pages.FT2;
+import com.j2.pages.WelcomePage;
 import com.j2.utils.PropertyManager;
 
 import io.appium.java_client.AppiumDriver;
@@ -68,18 +68,18 @@ public class TestBase extends WebDriverTestBase {
 
 			capabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, true);
 			//capabilities.setCapability("app", app.getAbsolutePath());
-			capabilities.setCapability("app", "D://MobileAutomation//Pharmacy//Pharma//Apk//mfg_qa_1_1_12.apk");
+			capabilities.setCapability("app", "D:\\BlockChain\\mfg_qa_1_1_12.apk");
 			
 
 			System.out.println(
 					"======test========" + "http://" + PropertyManager.getResourceBundle().getString("server.ip") + ":"
 							+ PropertyManager.getResourceBundle().getString("server.port") + "/wd/hub");
 
-			//driver = new AndroidDriver(new URL("http://" + PropertyManager.getResourceBundle().getString("server.ip")
-			//		+ ":" + PropertyManager.getResourceBundle().getString("server.port") + "/wd/hub"), capabilities);
+			driver = new AppiumDriver<WebElement>(new URL("http://" + PropertyManager.getResourceBundle().getString("server.ip")
+					+ ":" + PropertyManager.getResourceBundle().getString("server.port") + "/wd/hub"), capabilities);
 			//driver = new AppiumDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
-			driver = new AppiumDriver<WebElement>( new URL("http://202.131.112.106:4723/wd/hub"), capabilities);
+			//driver = new AppiumDriver<WebElement>( new URL("http://202.131.112.106:4723/wd/hub"), capabilities);
 			System.out.println("*********connection tested*****" + driver);
 			return driver;
 

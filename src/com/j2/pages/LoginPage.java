@@ -1,11 +1,9 @@
 package com.j2.pages;
 
 import org.apache.log4j.Logger;
-import org.testng.Reporter;
 
 import com.j2.driver.AbstractScreen;
 import com.j2.driver.TestBase;
-import com.j2.utils.Basefunctions;
 import com.j2.utils.PropertyManager;
 
 import io.appium.java_client.MobileElement;
