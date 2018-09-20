@@ -75,11 +75,11 @@ public class TestBase extends WebDriverTestBase {
 					"======test========" + "http://" + PropertyManager.getResourceBundle().getString("server.ip") + ":"
 							+ PropertyManager.getResourceBundle().getString("server.port") + "/wd/hub");
 
-			driver = new AppiumDriver<WebElement>(new URL("http://" + PropertyManager.getResourceBundle().getString("server.ip")
-					+ ":" + PropertyManager.getResourceBundle().getString("server.port") + "/wd/hub"), capabilities);
+			//driver = new AppiumDriver<WebElement>(new URL("http://" + PropertyManager.getResourceBundle().getString("server.ip")
+			//		+ ":" + PropertyManager.getResourceBundle().getString("server.port") + "/wd/hub"), capabilities);
 			//driver = new AppiumDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
-			//driver = new AppiumDriver<WebElement>( new URL("http://202.131.112.106:4723/wd/hub"), capabilities);
+			driver = new AppiumDriver<WebElement>( new URL("http://202.131.112.106:4723/wd/hub"), capabilities);
 			System.out.println("*********connection tested*****" + driver);
 			return driver;
 
