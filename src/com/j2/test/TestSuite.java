@@ -24,7 +24,7 @@ public class TestSuite {
 	WebDriverWait wait;
 	
 
-	/*@Test(priority = 1, description = "Verify table header")
+	@Test(priority = 1, description = "Verify table header")
 	public void TrackTrace_Verify_table_header() throws InterruptedException {
 		String header = "header";
 		
@@ -35,17 +35,17 @@ public class TestSuite {
 		welcomePage.verifyFirstPage();
 		TestBase.pause(5000);
 		welcomePage.clickViewAll();
-		TestBase.pause(5000);
+		TestBase.pause(40000);
 		
-		for(int i=0;i<4;i++)
+		for(int i=0;i<3;i++)
 		{
 			tablePage.verifyTableHeader(header,i );
 		}
 		tablePage.verifyTableDataPresent();
 		
-	}*/
+	}
 
-/*@Test(priority = 2, description = "Verify Table and Table Header")
+@Test(priority = 2, description = "Verify Table and Table Header")
 	public void TrackTrace_Verify_Table_and_Table_header() throws InterruptedException {
 	String header = "header";
 	WelcomePage welcomePage = new WelcomePage();
@@ -55,7 +55,7 @@ public class TestSuite {
 	TestBase.pause(5000);
 	
 	welcomePage.clickViewAll();
-	TestBase.pause(5000);
+	TestBase.pause(35000);
 	
 	for(int i=0;i<4;i++)
 	{
@@ -69,10 +69,10 @@ public class TestSuite {
 	
 	tablePage.verifyRowCount();
 	
-	}*/
+	}
 
 	@Test(priority = 3, description = "Verify_Sorting_Ascending_Order")
-	public void TrackTrace_Verify_Ascending_Order() throws InterruptedException {
+		public void TrackTrace_Verify_Ascending_Order() throws InterruptedException {
 		WelcomePage welcomePage = new WelcomePage();
 		TablePage tablePage = new TablePage();
 		
@@ -80,39 +80,31 @@ public class TestSuite {
 		TestBase.pause(5000);
 		
 		welcomePage.clickViewAll();
-		TestBase.pause(5000);
+		TestBase.pause(35000);
 		
 		tablePage.verifyAscendingOrder();
 		
 	}
 
-	/*@Test(priority = 4, description = "Davinci Android Phone - Keypad - Number Format")
-	public void TC_22327() {
-		KeypadPage keypadpage = new KeypadPage();
-		LoginPage loginpage = new LoginPage();
-
-		// Login with valid credentials
-		loginpage.doLogin();
-
-		// Verify entering 11 digit number
-		keypadpage.enter_11_digitnumber();
-
-		// Enter a domestic/US number; lead with the country code of 1
-		Basefunctions.verifyTrue(keypadpage.enter_domestic_USnumber(),
-				"Entry is accepted as Per requirements:If 10 digit number is entered with a 1 first display 1(415)-555-1122",
-				"Entry is not accepted as Per requirements:If 10 digit number is entered with a 1 first display 1(415)-555-1122");
-
-		// Verify number format when it is not leading with 1
-		Basefunctions.verifyTrue(keypadpage.enter_domestic_USnumber_omit1(),
-				"Entry is accepted as Per requirements: 'If 10 digit number is entered without 1 first display (415)-555-1122'",
-				"Entry is not accepted as Per requirements: 'If 10 digit number is entered without 1 first display (415)-555-1122'");
-		TestBase.getDriver().resetApp();
-
+	@Test(priority = 4, description = "Verify_Sorting_Descending_Order")
+	public void TrackTrace_Verify_Descending_Order() throws InterruptedException {
+		WelcomePage welcomePage = new WelcomePage();
+		TablePage tablePage = new TablePage();
+		
+		welcomePage.clickAllowCamera();
+		TestBase.pause(5000);
+		
+		welcomePage.clickViewAll();
+		TestBase.pause(35000);
+		
+		tablePage.verifyDescendingOrder();
+		
 	}
 
-	@Test(priority = 5, description = "Davinci Android Phone - Notification - 911 Prompt")
+	/*@Test(priority = 5, description = "Davinci Android Phone - Notification - 911 Prompt")
 	public void TC_22314() {
 		LoginPage loginpage = new LoginPage();
+
 
 		// Do login and waiting for notification message.
 		loginpage.verify_unabletodial_msg();

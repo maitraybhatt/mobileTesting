@@ -40,7 +40,6 @@ public class TablePage extends AbstractScreen {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Product']")
 	private MobileElement tableHeader1;	
 	
-	
 	 
 	 public MobileElement getTableDataPresent() {
 			return tableDataPresent;
@@ -82,26 +81,42 @@ public class TablePage extends AbstractScreen {
 		String cellValue="";
 		boolean stringComparison = false;
 		List<WebElement> elements = driver.findElements(By.xpath("//android.support.v7.widget.RecyclerView[2]//android.support.v7.widget.RecyclerView"));
+		
+		
 		int rowCount = elements.size();
 		System.out.println("****row count ="+ rowCount);
 		
-		tableHeader1.click();
-		TestBase.pause(3000);
+		//tableHeader1.click();
+		
 		String[] cellValues = new String[100];
-	
-		for(int i=1; i<rowCount; i++)
+      	
+		//WebElement columnHeader = driver.findElement(By.xpath("//android.view.ViewGroup//following::android.widget.TextView[2]"));
+		//System.out.println("****column header  ="+ columnHeader.getText());
+		
+		for(int tableHeaderIndex=1; tableHeaderIndex<=4; tableHeaderIndex++)
 		{
-		WebElement element = driver.findElement(By.xpath("//android.support.v7.widget.RecyclerView[2]/android.support.v7.widget.RecyclerView["+i+"]//android.widget.TextView"));
+			System.out.println("*****inside outer loop**");
+			WebElement columnHeader = driver.findElement(By.xpath("//android.view.ViewGroup//following::android.widget.TextView["+(tableHeaderIndex+1)+"]"));
+			System.out.println("****column header  ="+ columnHeader.getText());
+			columnHeader.click();
+			TestBase.pause(3000);
+			
+			for(int row=1; row<rowCount-2; row++)
+			{
+				System.out.println("*****inside inner loop**");
+				WebElement element = driver.findElement(By.xpath("//android.support.v7.widget.RecyclerView[2]/android.support.v7.widget.RecyclerView["+(row)+"]/following::android.widget.TextView["+(tableHeaderIndex)+"]"));
+				
+				cellValue = element.getText();
+				System.out.println("****cell value is***"+ row +" = "+ cellValue);
+				
+				cellValues[row] = cellValue;
+			}
 		
-		cellValue = element.getText();
-		System.out.println("****cell value is***"+ i+ cellValue);
-		
-		cellValues[i] = cellValue;
 		}
 		
-		for(int j=1; j<rowCount-1; j++)
+		for(int row1=1; row1<rowCount-3; row1++)
 		{
-			if(cellValues[j].compareTo(cellValues[j+1])<=0)
+			if(cellValues[row1].compareTo(cellValues[row1+1])<=0)
 				stringComparison=true;
 			else {
 				stringComparison = false;
@@ -111,6 +126,59 @@ public class TablePage extends AbstractScreen {
 		}
 		
 		Basefunctions.verifyTrue(stringComparison, "Verified ascending order", "Not in ascending order");
+	}
+	
+	public void verifyDescendingOrder() {
+		String cellValue="";
+		boolean stringComparison = false;
+		List<WebElement> elements = driver.findElements(By.xpath("//android.support.v7.widget.RecyclerView[2]//android.support.v7.widget.RecyclerView"));
+		
+		
+		int rowCount = elements.size();
+		System.out.println("****row count ="+ rowCount);
+		
+		//tableHeader1.click();
+		
+		String[] cellValues = new String[100];
+      	
+		//WebElement columnHeader = driver.findElement(By.xpath("//android.view.ViewGroup//following::android.widget.TextView[2]"));
+		//System.out.println("****column header  ="+ columnHeader.getText());
+		
+		for(int tableHeaderIndex=1; tableHeaderIndex<=4; tableHeaderIndex++)
+		{
+			System.out.println("*****inside outer loop**");
+			WebElement columnHeader = driver.findElement(By.xpath("//android.view.ViewGroup//following::android.widget.TextView["+(tableHeaderIndex+1)+"]"));
+			System.out.println("****column header  ="+ columnHeader.getText());
+			columnHeader.click();
+			TestBase.pause(1000);
+			columnHeader.click();
+			TestBase.pause(3000);
+			
+			for(int row=1; row<rowCount-1; row++)
+			{
+				System.out.println("*****inside inner loop**");
+				WebElement element = driver.findElement(By.xpath("//android.support.v7.widget.RecyclerView[2]/android.support.v7.widget.RecyclerView["+(row)+"]/following::android.widget.TextView["+(tableHeaderIndex)+"]"));
+				
+				cellValue = element.getText();
+				System.out.println("****cell value is***"+ row +" = "+ cellValue);
+				
+				cellValues[row] = cellValue;
+			}
+		
+		}
+		
+		for(int row1=1; row1<rowCount-3; row1++)
+		{
+			if(cellValues[row1].compareTo(cellValues[row1+1])>=0)
+				stringComparison=true;
+			else {
+				stringComparison = false;
+				break;
+			}
+			
+		}
+		
+		Basefunctions.verifyTrue(stringComparison, "Verified descending order", "Not in descending order");
 	}
 	
 }
