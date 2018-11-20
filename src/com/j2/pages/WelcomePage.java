@@ -27,7 +27,7 @@ public class WelcomePage extends AbstractScreen {
 	WebDriverWait wait;
 
 
-	@AndroidFindBy(id = "io.farmatrust.mfg.qa:id/view_all_button")
+	@AndroidFindBy(id = "io.farmatrust.mfg:id/view_all_button")
 	private MobileElement viewAllOption;
 	
 	@AndroidFindBy(xpath = "//android.widget.TextView")
