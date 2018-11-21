@@ -26,7 +26,6 @@ import io.appium.java_client.android.AndroidKeyCode;
 
 public class TestSuite {
 	public static AppiumDriver<WebElement> driver;
-	public static AndroidDriver<MobileElement> mDriver;
 	WebDriverWait wait;
 	
 
@@ -92,7 +91,7 @@ public class TestSuite {
 		//welcomePage.clickViewAll();
 		//TestBase.pause(35000);
 		System.out.println("*************Press back button**********");
-		 mDriver.pressKeyCode(AndroidKeyCode.BACK);
+		 
 		TestBase.pause(50000);
 		tablePage.verifyAscendingOrder();
 		System.out.println("*************Ascending order verified**********");
