@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuite name="Track And Trace"
-           tests="1"
+           tests="2"
            failures="0"
            errors="0"
            skipped="0"
-           time="41.444">
+           time="110.634">
   <properties />
   
   
-            <testcase name="TrackTrace_Verify_Ascending_Order" time="41.444" classname="com.j2.test.TestSuite" />
+            <testcase name="TrackTrace_Verify_table" time="101.408" classname="com.j2.test.TestSuite" />
+                <testcase name="TrackTrace_Verify_Table_Chronology" time="9.226" classname="com.j2.test.TestSuite" />
       
 </testsuite>

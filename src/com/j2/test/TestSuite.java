@@ -1,5 +1,7 @@
 package com.j2.test;
 
+import java.awt.event.KeyEvent;
+
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.openqa.selenium.Alert;
@@ -14,18 +16,22 @@ import com.j2.pages.TablePage;
 import com.j2.pages.WelcomePage;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.PressesKeyCode;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidKeyCode;
 
 
 
 
 public class TestSuite {
 	public static AppiumDriver<WebElement> driver;
+	public static AndroidDriver<MobileElement> mDriver;
 	WebDriverWait wait;
 	
 
-	@Test(priority = 1, description = "Verify table header")
-	public void TrackTrace_Verify_table_header() throws InterruptedException {
+	@Test(priority = 1, description = "Verify Table")
+	public void TrackTrace_Verify_table() throws InterruptedException {
 		String header = "header";
 		
 		WelcomePage welcomePage = new WelcomePage();
@@ -35,29 +41,32 @@ public class TestSuite {
 		welcomePage.verifyFirstPage();
 		TestBase.pause(5000);
 		welcomePage.clickViewAll();
-		TestBase.pause(40000);
+		TestBase.pause(60000);
 		
 		for(int i=0;i<3;i++)
 		{
 			tablePage.verifyTableHeader(header,i );
 		}
 		tablePage.verifyTableDataPresent();
+		System.out.println("*************Table verified**********");
 		
 	}
 
-@Test(priority = 2, description = "Verify Table and Table Header")
-	public void TrackTrace_Verify_Table_and_Table_header() throws InterruptedException {
+@Test(priority = 2, description = "Verify Table Chronology")
+	public void TrackTrace_Verify_Table_Chronology() throws InterruptedException {
+	System.out.println("*************Test 2**********");
 	String header = "header";
 	WelcomePage welcomePage = new WelcomePage();
 	TablePage tablePage = new TablePage();
 	
-	welcomePage.clickAllowCamera();
-	TestBase.pause(5000);
 	
-	welcomePage.clickViewAll();
-	TestBase.pause(35000);
+	//welcomePage.clickAllowCamera();
+	//TestBase.pause(5000);
 	
-	for(int i=0;i<4;i++)
+	//welcomePage.clickViewAll();
+	//TestBase.pause(35000);
+	
+	for(int i=0;i<3;i++)
 	{
 		tablePage.verifyTableHeader(header,i );
 	}
@@ -69,37 +78,41 @@ public class TestSuite {
 	
 	tablePage.verifyRowCount();
 	
+	System.out.println("*************Table chronology verified**********");
 	}
 
-	@Test(priority = 3, description = "Verify_Sorting_Ascending_Order")
+	/*@Test(priority = 3, description = "Verify_Sorting_Ascending_Order")
 		public void TrackTrace_Verify_Ascending_Order() throws InterruptedException {
 		WelcomePage welcomePage = new WelcomePage();
 		TablePage tablePage = new TablePage();
 		
-		welcomePage.clickAllowCamera();
+		//welcomePage.clickAllowCamera();
 		TestBase.pause(5000);
 		
-		welcomePage.clickViewAll();
-		TestBase.pause(35000);
-		
+		//welcomePage.clickViewAll();
+		//TestBase.pause(35000);
+		System.out.println("*************Press back button**********");
+		 mDriver.pressKeyCode(AndroidKeyCode.BACK);
+		TestBase.pause(50000);
 		tablePage.verifyAscendingOrder();
-		
-	}
+		System.out.println("*************Ascending order verified**********");
+	}*/
 
-	@Test(priority = 4, description = "Verify_Sorting_Descending_Order")
+	/*@Test(priority = 4, description = "Verify_Sorting_Descending_Order")
 	public void TrackTrace_Verify_Descending_Order() throws InterruptedException {
 		WelcomePage welcomePage = new WelcomePage();
 		TablePage tablePage = new TablePage();
 		
-		welcomePage.clickAllowCamera();
-		TestBase.pause(5000);
+		//welcomePage.clickAllowCamera();
+		//TestBase.pause(5000);
 		
-		welcomePage.clickViewAll();
-		TestBase.pause(35000);
+		//welcomePage.clickViewAll();
+		//TestBase.pause(35000);
 		
 		tablePage.verifyDescendingOrder();
-		
-	}
+		System.out.println("*************Descending order verified**********");
+
+	}*/
 
 	/*@Test(priority = 5, description = "Davinci Android Phone - Notification - 911 Prompt")
 	public void TC_22314() {
