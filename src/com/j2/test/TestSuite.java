@@ -1,6 +1,5 @@
 package com.j2.test;
 
-import java.awt.event.KeyEvent;
 
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -80,7 +79,7 @@ public class TestSuite {
 	System.out.println("*************Table chronology verified**********");
 	}
 
-	/*@Test(priority = 3, description = "Verify_Sorting_Ascending_Order")
+	@Test(priority = 3, description = "Verify_Sorting_Ascending_Order")
 		public void TrackTrace_Verify_Ascending_Order() throws InterruptedException {
 		WelcomePage welcomePage = new WelcomePage();
 		TablePage tablePage = new TablePage();
@@ -91,13 +90,14 @@ public class TestSuite {
 		//welcomePage.clickViewAll();
 		//TestBase.pause(35000);
 		System.out.println("*************Press back button**********");
+	    //tablePage.openActiveListItems();
 		 
 		TestBase.pause(50000);
 		tablePage.verifyAscendingOrder();
 		System.out.println("*************Ascending order verified**********");
-	}*/
+	}
 
-	/*@Test(priority = 4, description = "Verify_Sorting_Descending_Order")
+	@Test(priority = 4, description = "Verify_Sorting_Descending_Order")
 	public void TrackTrace_Verify_Descending_Order() throws InterruptedException {
 		WelcomePage welcomePage = new WelcomePage();
 		TablePage tablePage = new TablePage();
@@ -111,7 +111,7 @@ public class TestSuite {
 		tablePage.verifyDescendingOrder();
 		System.out.println("*************Descending order verified**********");
 
-	}*/
+	}
 
 	/*@Test(priority = 5, description = "Davinci Android Phone - Notification - 911 Prompt")
 	public void TC_22314() {
